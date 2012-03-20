@@ -16,7 +16,6 @@ db/*.sqlite3
 /coverage
 /coverage.data
 /.yardoc
-.rvmrc
 
 ## generic files to ignore
 *~
@@ -26,4 +25,3 @@ db/*.sqlite3
 *.out
 *.swo
 *.md.html
-
