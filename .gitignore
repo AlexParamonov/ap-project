@@ -1,0 +1,29 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+Gemfile.lock
+pkg/
+.idea/
+doc/
+db/*.sqlite3
+/coverage
+/coverage.data
+/.yardoc
+.rvmrc
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.swo
+*.md.html
+
