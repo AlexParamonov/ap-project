@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>3.2.2.rc1'
 
-gem 'sqlite3'
 gem 'jquery-rails'
 gem 'haml'
 group :test, :development do
