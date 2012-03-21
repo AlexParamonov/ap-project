@@ -6,6 +6,11 @@ gem 'jquery-rails'
 gem 'haml'
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
+  gem 'bbq', git: 'git://github.com/drugpl/bbq.git'
+end
+
+group :test do
+  gem 'factory_girl'
 end
 # Gems used only for assets and not required
 # in production environments by default.
