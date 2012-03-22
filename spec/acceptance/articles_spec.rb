@@ -2,7 +2,6 @@ require 'spec_helper'
 
 feature "Articles" do
 
-  # FIXME Use factories for article creation
   scenario "reader can browse articles" do
     oor = { title:   'Objects On Rails spotlight',
             summary: 'Plain Ruby Objects everywhere!',

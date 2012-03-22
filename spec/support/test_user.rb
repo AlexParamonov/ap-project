@@ -8,7 +8,12 @@ class TestUser < Bbq::TestUser
   end
   module ArticleManager
     def add_article(params = {})
-      Article.new(params).publish
+      open_tickets_listing
+      follow "new_article"
+      params.each do |param, value|
+        fill_in  param, :with => value
+      end
+      press "create_article"
     end
 
     def open_articles_listing
