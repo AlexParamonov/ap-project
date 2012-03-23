@@ -11,6 +11,12 @@ FactoryGirl.define do
       summary 'How JS slowdown the web.'
       content 'Sometimes JS become tooooo slooow'
     end
+
+    factory :invisible_article do
+      title   'I am hidded'
+      summary 'You should not see me!'
+      content 'How you got here???!!!!'
+    end
   end
 
 
