@@ -11,6 +11,10 @@ class TestUser
     super || actions.respond_to?(*args)
   end
 
+  def should_be_at(path)
+    current_path.should == path
+  end
+
   module ArticleReader
     def open_articles_listing
       visit articles_path
