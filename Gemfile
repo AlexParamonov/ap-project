@@ -11,6 +11,7 @@ end
 
 group :test do
   gem 'factory_girl'
+  gem "kameleon", "~> 0.2.0.alpha"
 end
 # Gems used only for assets and not required
 # in production environments by default.

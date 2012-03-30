@@ -8,6 +8,9 @@
 /log/*.log
 /tmp
 
+# Ignore vimtags
+tags
+
 Gemfile.lock
 pkg/
 .idea/
