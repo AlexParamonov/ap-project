@@ -20,14 +20,14 @@ describe "Articles" do
         alice.click 'articles'
       end
 
-      it "should see existing articles" do
+      pending "should see existing articles" do
         [@oor, @js].each do |article|
           alice.see link: article.title
           alice.see article.sumary
         end
       end
 
-      it "able to open article page" do
+      pending "able to open article page" do
         alice.click @oor.title
 
         alice.see @oor.title,
@@ -48,14 +48,14 @@ describe "Articles" do
         alex.click 'articles'
       end
 
-      it "should see regular and invisible articles" do
+      pending "should see regular and invisible articles" do
         [@oor, @invisible].each do |article|
           alex.see link: article.title
           alex.see article.sumary
         end
       end
 
-      it "able to open article view page" do
+      pending "able to open article view page" do
         alex.click @oor.title
 
         alex.see  @oor.title,
@@ -65,7 +65,7 @@ describe "Articles" do
         alex.see 'edit'
       end
 
-      it "able to open article edit page" do
+      pending "able to open article edit page" do
         alex.click @oor.title,
                    'edit' # TODO Click edit near title...
 
@@ -75,13 +75,13 @@ describe "Articles" do
     end
 
     describe "edit article page" do
-      it "should see article fields inside inputs tags" do
+      pending "should see article fields inside inputs tags" do
         within 'input' do alex.see @oor.title end
         within 'input' do alex.see @oor.sumary end
         within 'input' do alex.see @oor.content end
       end
 
-      it "changes title" do
+      pending "changes title" do
         alex.open_edit_article_page_for @oor
 
         fill_in "New title for OOR book" => :title
@@ -93,7 +93,7 @@ describe "Articles" do
         alex.see "New title for OOR book"
       end
 
-      it "changes summary" do
+      pending "changes summary" do
         alex.open_edit_article_page_for @oor
 
         fill_in "New summary for OOR book" => :summary
@@ -105,7 +105,7 @@ describe "Articles" do
         alex.see "New summary for OOR book"
       end
 
-      it "changes content" do
+      pending "changes content" do
         alex.open_edit_article_page_for @oor
 
         fill_in "New content for OOR book" => :content
