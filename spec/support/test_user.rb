@@ -1,23 +1,32 @@
-require "bbq/test_user"
+# TODO load only Rails are used
+class TestUser
+  include Rails.application.routes.url_helpers
 
-class TestUser < Bbq::TestUser
+  attr_accessor :action_framework
+  def method_missing(meth, *args, &blk)
+    action_framework.send meth, *args, &blk
+  end
+
+  def respond_to?(*args)
+    super || actions.respond_to?(*args)
+  end
+
   module ArticleReader
     def open_articles_listing
-      visit support.articles_path
+      visit articles_path
     end
   end
-  module ArticleManager
-    def add_article(params = {})
-      open_tickets_listing
-      follow "new_article"
-      params.each do |param, value|
-        fill_in  param, :with => value
-      end
-      press "create_article"
+
+  module ArticleEditor
+    def open_edit_article_page_for(article)
+      visit edit_admin_article_path(article)
     end
 
     def open_articles_listing
-      visit support.admin_articles_path
+      visit admin_articles_path
     end
+  end
+  def act_as(role)
+    self.extend class_eval(role.to_s)
   end
 end

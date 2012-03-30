@@ -1,12 +1,12 @@
 FactoryGirl.define do
   factory :dummy_article, :class => Article do
-    factory :OOR_article do
+    factory :oor_article do
       title   'Objects On Rails spotlight'
       summary 'Plain Ruby Objects everywhere!'
       content 'Forget everything you knew before....'
     end
 
-    factory :JS_article do
+    factory :js_article do
       title   'Javascript and Web 2.0'
       summary 'How JS slowdown the web.'
       content 'Sometimes JS become tooooo slooow'
