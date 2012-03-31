@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '~>3.2.2.rc1'
 
 gem 'jquery-rails'
-gem 'haml'
+gem 'haml-rails'
+
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem 'bbq', git: 'git://github.com/drugpl/bbq.git'
