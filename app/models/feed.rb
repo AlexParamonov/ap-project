@@ -6,10 +6,14 @@ class Feed
     @entries = []
   end
 
-  def new_article
-    article_source.call.tap do |article|
+  def new_article(*attrs)
+    article_source.call(*attrs).tap do |article|
       article.feed = self
     end
+  end
+
+  def add_entry(entry)
+    entries << entry
   end
 
   def title
