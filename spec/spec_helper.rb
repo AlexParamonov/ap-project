@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] ||= 'test'
+require_relative 'spec_helper_lite'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'

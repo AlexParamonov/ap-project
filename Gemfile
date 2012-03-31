@@ -7,13 +7,19 @@ gem 'haml-rails'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
-  gem 'bbq', git: 'git://github.com/drugpl/bbq.git'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
+  gem 'guard-shell'
+  gem 'rb-inotify' if RUBY_PLATFORM =~ /linux/i
+  gem 'libnotify' if RUBY_PLATFORM =~ /linux/i
 end
 
 group :test do
   gem 'factory_girl'
   gem "kameleon", "~> 0.2.0.alpha"
 end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
