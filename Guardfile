@@ -2,7 +2,7 @@
 # More info at https://github.com/guard/guard#readme
 
 group 'integration' do
-  guard 'rspec', :spec_paths => ['spec/integration'], cli: "--color --format documentation", version: 2 do
+  guard 'rspec', :spec_paths => ['spec/integration', 'spec/cells'], cli: "--color --format documentation", version: 2 do
     watch('spec/spec_helper.rb')  { "spec/integration" }
 
     # Rails example

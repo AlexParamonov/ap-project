@@ -7,6 +7,7 @@ class FeedController < ApplicationController
     article1.content = "Versioning API sucks!"
     article1.publish
 
+    article2 = @feed.new_article
     article2.title   = "Objects on Rails"
     article2.summary = "or Avdi knows the truth"
     article2.content = "Rails AR sucks!"

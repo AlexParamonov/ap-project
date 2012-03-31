@@ -1,0 +1,6 @@
+-# .total-found
+-#   There are
+-#   %b #{pluralize(@entries.total_count, 'entries')}
+-#   found
+%section.entries
+  = render partial: "entry", collection: @entries
