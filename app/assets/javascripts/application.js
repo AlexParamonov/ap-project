@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require skeleton/tabs
 //= require_tree .

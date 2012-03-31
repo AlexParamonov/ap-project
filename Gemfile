@@ -5,6 +5,7 @@ gem 'rails', '~>3.2.2.rc1'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'cells'
+gem 'skeleton-rails' # CSS
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
