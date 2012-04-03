@@ -26,6 +26,10 @@ class TestUser
       visit edit_admin_article_path(article)
     end
 
+    def open_new_article_page
+      visit new_article_path
+    end
+
     def open_articles_listing
       visit admin_articles_path
     end

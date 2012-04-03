@@ -10,6 +10,7 @@
 
 # Ignore vimtags
 tags
+TAGS
 
 Gemfile.lock
 pkg/

@@ -1,5 +1,7 @@
 FactoryGirl.define do
+  factory :feed, class: Feed
   factory :dummy_article, :class => Article do
+    association :feed, factory: :feed, strategy: :build
     factory :oor_article do
       title   'Objects On Rails spotlight'
       summary 'Plain Ruby Objects everywhere!'

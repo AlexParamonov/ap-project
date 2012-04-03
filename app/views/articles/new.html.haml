@@ -1,0 +1,7 @@
+%h1 New Article
+= form_for @article do |f|
+  = f.text_field :title
+  = f.text_area :summary
+  = f.text_area :content
+
+  = f.submit 'Publish article'

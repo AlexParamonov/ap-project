@@ -8,6 +8,9 @@ describe "Articles behavior:" do
   end
 
   let(:background) { ArticleBackground.new }
+  before(:each) do
+    visit '/'
+  end
 
   context "reader at" do
     let(:alice) { user.act_as :ArticleReader }
@@ -24,13 +27,13 @@ describe "Articles behavior:" do
       pending "should see published articles" do
         [@oor, @js].each do |article|
           alice.see link: article.title
-          alice.see article.sumary
+          alice.see article.summary
         end
       end
 
       pending "should not see unpublished articles" do
         alice.not_see link: @unpublished.title
-        alice.not_see @unpublished.sumary
+        alice.not_see @unpublished.summary
       end
 
       pending "is able to open article page for reading" do
@@ -49,7 +52,7 @@ describe "Articles behavior:" do
 
       pending "should see article fields" do
         alice.see @oor.title,
-                  @oor.sumary,
+                  @oor.summary,
                   @oor.content
       end
     end
@@ -60,7 +63,7 @@ describe "Articles behavior:" do
 
     describe "article listing page" do
       before(:each) do
-        @oor       = background.publish_article :oor_article
+        @oor         = background.publish_article :oor_article
         @unpublished = background.publish_article :unpublished_article
 
         alex.click 'articles'
@@ -69,7 +72,7 @@ describe "Articles behavior:" do
       pending "should see published and unpublished articles" do
         [@oor, @unpublished].each do |article|
           alex.see link: article.title
-          alex.see article.sumary
+          alex.see article.summary
         end
       end
 
@@ -84,7 +87,7 @@ describe "Articles behavior:" do
         alex.should_be_at edit_article_path(@oor)
       end
 
-      pending "is able to open new article page" do
+      it "is able to open new article page" do
         alex.click 'new_article'
         alex.should_be_at new_article_path
       end
@@ -100,7 +103,7 @@ describe "Articles behavior:" do
 
       pending "should see article fields" do
         alex.see  @oor.title,
-                  @oor.sumary,
+                  @oor.summary,
                   @oor.content
       end
 
@@ -110,16 +113,50 @@ describe "Articles behavior:" do
       end
     end
 
+    describe "article new page" do
+      before(:each) do
+        alex.open_new_article_page
+      end
+
+      it "should see article fields inside input tags" do
+        see fields: [
+              'article[title]',
+              'article[summary]',
+              'article[content]'
+            ]
+      end
+
+      it "is able to publish article" do
+        fill_in "New article"     => 'article_title',
+                "Article summary" => 'article_summary',
+                "Article content" => 'article_content'
+
+        # click 'article.buttons.publish'
+        click 'Publish'
+        see 'article.added'
+
+        within('entries') do
+          see "New article"
+              "Article summary"
+              "Article content"
+        end
+
+      end
+    end
+
+
     describe "article edit page" do
+      before(:each) do
+        alex.open_edit_article_page_for @oor
+      end
+
       pending "should see article fields inside input tags" do
         within 'input' do alex.see @oor.title end
-        within 'input' do alex.see @oor.sumary end
+        within 'input' do alex.see @oor.summary end
         within 'input' do alex.see @oor.content end
       end
 
       pending "is able to change title" do
-        alex.open_edit_article_page_for @oor
-
         fill_in "New title for OOR book" => :title
         click 'save'
 
@@ -130,8 +167,6 @@ describe "Articles behavior:" do
       end
 
       pending "is able to change summary" do
-        alex.open_edit_article_page_for @oor
-
         fill_in "New summary for OOR book" => :summary
         click 'save'
 
@@ -142,8 +177,6 @@ describe "Articles behavior:" do
       end
 
       pending "is able to change content" do
-        alex.open_edit_article_page_for @oor
-
         fill_in "New content for OOR book" => :content
         click 'save'
 
