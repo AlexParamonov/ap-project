@@ -22,7 +22,7 @@ db/*.sqlite3
 
 ## generic files to ignore
 *~
-*.lock
+# *.lock
 *.DS_Store
 *.swp
 *.out
