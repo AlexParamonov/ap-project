@@ -1,5 +1,7 @@
 ApProject::Application.routes.draw do
+  filter :locale
   root to: "feed#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

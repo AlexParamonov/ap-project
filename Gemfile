@@ -6,6 +6,8 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'cells'
 
+gem 'routing-filter'
+
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "rspec-cells"
