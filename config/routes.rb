@@ -1,6 +1,7 @@
 ApProject::Application.routes.draw do
+  filter :locale
   root to: "feed#index"
-  
+
   resources :articles, except:[:index] do
     collection do
       get :index, to: 'feed#index'

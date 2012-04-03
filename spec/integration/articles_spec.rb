@@ -1,6 +1,8 @@
 require_relative "../spec_helper"
 
 describe "Articles behavior:" do
+  include I18nSupport
+
   let(:user) do
     TestUser.new.tap do |user|
       user.action_framework = self
@@ -132,8 +134,8 @@ describe "Articles behavior:" do
                 "Article content" => 'article_content'
 
         # click 'article.buttons.publish'
-        click 'Publish'
-        see 'article.added'
+        iclick "article.buttons.publish"
+        isee   "article.messages.added"
 
         within('entries') do
           see "New article"
