@@ -137,7 +137,7 @@ describe "Articles behavior:" do
         iclick "article.buttons.publish"
         isee   "article.messages.added"
 
-        within('entries') do
+        within('.entries') do
           see "New article"
               "Article summary"
               "Article content"

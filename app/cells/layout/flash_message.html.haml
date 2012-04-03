@@ -1,0 +1,2 @@
+- @flash_message.each do |name, msg|
+  = content_tag :div, sanitize(msg), :id => "flash_#{name}" if msg

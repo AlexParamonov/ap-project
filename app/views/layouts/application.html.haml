@@ -9,5 +9,7 @@
   %body
     = render_cell :layout, :header
     .main_content.box
+      #flash
+        = render_cell :layout, :flash_message, :flash => flash
       = yield
     = render_cell :sidebar, :display#, user: current_user

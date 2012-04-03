@@ -1,0 +1,5 @@
+#error_explanation
+  - @errors.each do |error|
+    %h2= error[:sentence]
+    %ul= error[:messages]
+  %span#error-explanation-exit
