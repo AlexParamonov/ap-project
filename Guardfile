@@ -1,15 +1,18 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-group 'integration' do
+group 'i' do # intergation
   guard 'rspec', :spec_paths => ['spec/integration', 'spec/cells'], cli: "--color --format documentation", version: 2 do
     watch('spec/spec_helper.rb')  { "spec/integration" }
+    watch(%r{^spec/(.+)_spec\.rb$})
 
     # Rails example
     watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+    watch(%r{^app/(.*)(\.erb|\.haml)$})                 { "spec/integration" }
     watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
-    watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
-    watch('config/routes.rb')                           { "spec/routing" }
+
+    watch(%r{^spec/support/(.+)\.rb$})                  { ["spec/integration", "spec/cells"] }
+    watch('config/routes.rb')                           { "spec/integration" }
     watch('app/controllers/application_controller.rb')  { "spec/controllers" }
 
     watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
@@ -18,7 +21,7 @@ group 'integration' do
   end
 end
 
-group 'unit' do
+group 'u' do # unit
   guard 'rspec', :spec_paths => ['spec/models', 'spec/lib'], cli: "--color --format documentation", version: 2 do
     watch('spec/spec_helper_lite.rb')
 
