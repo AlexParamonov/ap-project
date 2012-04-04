@@ -53,4 +53,31 @@ describe Article do
       article.publish
     end
   end
+
+  describe "#pubdate" do
+    context "before publishing" do
+      it "is nil" do
+        article.pubdate.should be_nil
+      end
+    end
+
+    context "after publishing" do
+      before(:each) do
+        @now = DateTime.parse "2012-04-04T13:54"
+        @clock = mock
+        @clock.stub(:now).and_return(@now)
+
+        article.feed = mock.as_null_object
+        article.publish(@clock)
+      end
+
+      it "is a datetime" do
+        article.pubdate.should be_kind_of DateTime
+      end
+
+      it "is current time" do
+        article.pubdate.should be @now
+      end
+    end
+  end
 end
