@@ -1,15 +1,9 @@
+require_relative 'action_framework'
+
 # TODO load only Rails are used
 class TestUser
   include Rails.application.routes.url_helpers
-
-  attr_accessor :action_framework
-  def method_missing(meth, *args, &blk)
-    action_framework.send meth, *args, &blk
-  end
-
-  def respond_to?(*args)
-    super || actions.respond_to?(*args)
-  end
+  include ActionFramework
 
   def should_be_at(path)
     current_path.should == path

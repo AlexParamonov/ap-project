@@ -1,4 +1,6 @@
 require_relative "../spec_helper"
+require_relative "../support/test_user"
+require_relative "../support/article_background"
 
 describe "Articles behavior:" do
   include I18nSupport
@@ -9,7 +11,12 @@ describe "Articles behavior:" do
     end
   end
 
-  let(:background) { ArticleBackground.new }
+  let(:background) do
+    ArticleBackground.new.tap do |article_background|
+      article_background.action_framework = self
+    end
+  end
+
   before(:each) do
     visit '/'
   end
