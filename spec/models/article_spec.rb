@@ -1,9 +1,8 @@
 require_relative '../spec_helper_lite'
 
-module ActiveModel
-  module Naming; end
-  module Conversion; end
-end
+stub_module 'ActiveModel::Conversion'
+stub_module 'ActiveModel::Naming'
+
 require_relative '../../app/models/article'
 
 describe Article do
