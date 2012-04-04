@@ -1,4 +1,9 @@
 require_relative '../spec_helper_lite'
+
+module ActiveModel
+  module Naming; end
+  module Conversion; end
+end
 require_relative '../../app/models/article'
 
 describe Article do

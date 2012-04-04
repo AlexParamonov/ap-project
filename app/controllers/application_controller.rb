@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
 
   private
   def init_feed
-    @feed = Feed.new
+    @feed = THE_FEED
   end
 end

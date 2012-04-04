@@ -1,4 +1,3 @@
-require "active_model"
 
 class Article
   extend ActiveModel::Naming
