@@ -32,16 +32,19 @@ group 'u' do # unit
   end
 end
 
-guard 'bundler' do
-  watch('Gemfile')
-  # Uncomment next line if Gemfile contain `gemspec' command
-  # watch(/^.+\.gemspec/)
-end
-
-guard 'shell' do
-  def refresh_tags
-    `ctags-exuberant -e -R lib app spec public config`
+group 's' do # system
+  guard 'bundler' do
+    watch('Gemfile')
+    # Uncomment next line if Gemfile contain `gemspec' command
+    # watch(/^.+\.gemspec/)
   end
 
-  watch(%r{^(lib|app|spec|public|config)/.*\.rb$}) {|m| refresh_tags }
+  guard 'shell' do
+    def refresh_tags
+      `ctags-exuberant -e -R lib app spec public config`
+      puts 'tags refreshed'
+    end
+
+    watch(%r{^(lib|app|spec|public|config)/.*\.rb$}) {|m| refresh_tags }
+  end
 end
