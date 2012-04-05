@@ -1,5 +1,4 @@
 class Feed
-  attr_reader :entries
   attr_writer :article_source
 
   def initialize
@@ -13,11 +12,15 @@ class Feed
   end
 
   def add_entry(entry)
-    entries << entry
+    @entries << entry
   end
 
   def title
     "Articles"
+  end
+
+  def entries
+    @entries.sort_by(&:pubdate).reverse.take(10)
   end
 
   private

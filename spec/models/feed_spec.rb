@@ -34,9 +34,40 @@ describe Feed do
 
   describe "#add_entry" do
     it "adds the entry to the feed" do
-      entry = Object.new
+      entry = stub.as_null_object
       feed.add_entry(entry)
       feed.entries.should include entry
+    end
+  end
+
+  describe "#entries" do
+    def stub_entry_with_date(date)
+      OpenStruct.new(pubdate: DateTime.parse(date))
+    end
+
+    it "are sorted in reverce-chronological order" do
+      oldest = stub_entry_with_date "2012-04-01"
+      middle = stub_entry_with_date "2012-04-02"
+      newest = stub_entry_with_date "2012-04-03"
+
+      feed.add_entry oldest
+      feed.add_entry newest
+      feed.add_entry middle
+
+      feed.entries.should eq [newest, middle, oldest]
+    end
+
+    # TODO WTF????
+    it "are limited to 10 items" do
+      10.times do |i|
+        feed.add_entry stub_entry_with_date "2012-04-#{i+1}"
+      end
+
+      oldest = stub_entry_with_date "2012-03-30"
+      feed.add_entry oldest
+
+      feed.should have(10).entries
+      feed.entries.should_not include oldest
     end
   end
 end
