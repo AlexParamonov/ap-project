@@ -5,8 +5,11 @@ class ArticlesController < ApplicationController
 
   def create
     @article = @feed.new_article(params[:article])
-    @article.publish
-
-    redirect_to root_path, notice: "Article added"
+    # TODO remove if-else
+    if @article.publish
+      redirect_to root_path, notice: "Article added"
+    else
+      render 'new'
+    end
   end
 end

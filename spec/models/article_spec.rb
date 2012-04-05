@@ -1,8 +1,6 @@
 require_relative '../spec_helper_lite'
 
-stub_module 'ActiveModel::Conversion'
-stub_module 'ActiveModel::Naming'
-
+require "active_model"
 require_relative '../../app/models/article'
 
 describe Article do
@@ -42,15 +40,46 @@ describe Article do
     article.feed.should eq feed
   end
 
+  it "is not valid with blank title" do
+    [nil, "", " "].each do |bad_title|
+      article.title = bad_title
+      article.should_not be_valid
+    end
+  end
+
+  it "is valid with non-blanck title" do
+    article.title = "hey there"
+    article.should be_valid
+  end
+
   describe "#publish" do
     let(:feed) { mock(:feed) }
     before(:each) do
       article.feed = feed
+      # TODO remove this dep
+      article.stub(:valid?).and_return(true)
     end
 
     it "adds the article to the feed" do
       feed.should_receive(:add_entry).with(article)
       article.publish
+    end
+
+
+    describe "given an invaid article" do
+      before(:each) do
+        article.stub(:valid?).and_return(false)
+      end
+
+      it "wont add the article to the feed" do
+        feed.should_not_receive(:add_entry)
+        article.publish
+      end
+
+      # TODO change to raise exception
+      it "returns false" do
+        article.publish.should be_false
+      end
     end
   end
 
@@ -68,6 +97,8 @@ describe Article do
         @clock.stub(:now).and_return(@now)
 
         article.feed = mock.as_null_object
+        # TODO remove this dep
+        article.stub(:valid?).and_return(true)
         article.publish(@clock)
       end
 
