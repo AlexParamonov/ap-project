@@ -1,2 +1,3 @@
 * add specs for error cell
 * add specs for flash cell
+* remove that ugly as_null_object from tests
