@@ -4,7 +4,8 @@
 group 'i' do # intergation
   guard 'rspec', :spec_paths => ['spec/integration', 'spec/cells'], cli: "--color --format documentation", version: 2 do
     watch('spec/spec_helper.rb')  { "spec/integration" }
-    watch(%r{^spec/(.+)_spec\.rb$})
+    watch(%r{^spec/intergation/(.+)_spec\.rb$})
+    watch(%r{^spec/cells/(.+)_spec\.rb$})
 
     # Rails example
     watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
