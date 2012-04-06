@@ -1,5 +1,5 @@
 rvm:
   - 1.9.3
-  # - jruby-19mode # TODO investigate why some C ext does not compile
-  - rbx-19mode
   - ruby-head
+  # - jruby-19mode # TODO investigate why some C ext does not compile
+  # - rbx-19mode
