@@ -22,8 +22,15 @@ group 'i' do # intergation
   end
 end
 
+
 group 'u' do # unit
-  guard 'rspec', :spec_paths => ['spec/models', 'spec/lib'], cli: "--color --format documentation", version: 2 do
+  guard 'rspec', :spec_paths => [
+                                  'spec/models',
+                                  'spec/lib',
+                                  'spec/exhibits',
+                                  'spec/helpers'
+                                ],
+                cli: "--color --format documentation", version: 2 do
     watch('spec/spec_helper_lite.rb')
 
     watch(%r{^spec/(.+)_spec\.rb$})

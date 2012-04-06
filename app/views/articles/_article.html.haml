@@ -1,0 +1,8 @@
+%article
+  %header
+    %h1= article.title
+    .published
+      Published:
+      %time{ pubdate: 'pubdate' }= article.pubdate
+    -# %h1= link_to article.title, article_url(article)
+  %p= article.summary
