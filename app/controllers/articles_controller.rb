@@ -1,10 +1,10 @@
 class ArticlesController < ApplicationController
   def new
-    @article = @feed.new_article
+    @article = feed.new_article
   end
 
   def create
-    @article = @feed.new_article(params[:article])
+    @article = feed.new_article(params[:article])
     # TODO remove if-else
     if @article.publish
       redirect_to root_path, notice: "Article added"
@@ -12,4 +12,8 @@ class ArticlesController < ApplicationController
       render 'new'
     end
   end
+
+  private
+  attr_reader :article
+  helper_method :article
 end

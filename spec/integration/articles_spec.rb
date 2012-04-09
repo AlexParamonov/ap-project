@@ -33,7 +33,7 @@ describe "Articles behavior:" do
         alice.click 'articles'
       end
 
-      pending "should see published articles" do
+      it "should see published articles" do
         [@oor, @js].each do |article|
           alice.see link: article.title
           alice.see article.summary
@@ -78,7 +78,7 @@ describe "Articles behavior:" do
         alex.click 'articles'
       end
 
-      pending "should see published and unpublished articles" do
+      it "should see published and unpublished articles" do
         [@oor, @unpublished].each do |article|
           alex.see link: article.title
           alex.see article.summary

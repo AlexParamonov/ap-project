@@ -1,6 +1,6 @@
 %h1 New Article
-= form_for @article do |f|
-  = render_cell :form, :errors, :resource => @article
+= form_for article do |f|
+  = render_cell :form, :errors, :resource => article
 
   = f.text_field :title
   = f.text_area :summary
