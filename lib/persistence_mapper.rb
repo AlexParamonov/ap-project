@@ -11,13 +11,16 @@ module PersistenceMapper
     end
   end
 
-  def load_attributes_from persistence
+  attr_accessor :persistence
+
+  def load_attributes_from_persistence
     attributes.each_pair do |attr, _|
       self.public_send "#{attr}=", persistence.public_send(attr)
     end
+    self
   end
 
-  def load_attributes_to persistence
+  def load_attributes_to_persistence
     attributes.each_pair do |attr, _|
       persistence.public_send "#{attr}=", self.public_send(attr)
     end
