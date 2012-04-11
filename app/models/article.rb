@@ -1,9 +1,18 @@
+require "virtus"
+require_relative "feed"
+
 class Article
+  include Virtus
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :feed, :title, :summary, :content, :pubdate
+  attribute :feed, Feed
+
+  attribute :title, String
+  attribute :summary, String
+  attribute :content, String
+  attribute :pubdate, DateTime
 
   validates :title, presence: true
 

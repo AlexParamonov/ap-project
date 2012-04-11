@@ -1,4 +1,8 @@
+require "virtus"
+
 class Feed
+  include Virtus
+
   attr_writer :article_source
 
   def initialize
