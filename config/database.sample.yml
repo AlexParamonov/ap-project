@@ -6,7 +6,7 @@ development:
 
 test:
   adapter: sqlite3
-  database ":memory:"
+  database: ":memory:"
   timeout: 500
 
 production:
