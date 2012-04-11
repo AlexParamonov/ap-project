@@ -1,3 +1,5 @@
+require "factory_girl"
+
 FactoryGirl.define do
   factory :feed, class: Feed
   factory :dummy_article, :class => Article do

@@ -13,3 +13,5 @@ matrix:
     - rvm: rbx-19mode
 before_script:
   - "cp config/database.sample.yml config/database.yml"
+script:
+  - "bundle exec rake ci:tests"

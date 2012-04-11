@@ -61,7 +61,7 @@ describe EnumerableExhibit do
 
   describe "#to_ary" do
     it "returns itself" do
-      subject.should be_equal subject.to_ary
+      subject.should eq subject.to_ary
     end
   end
 
