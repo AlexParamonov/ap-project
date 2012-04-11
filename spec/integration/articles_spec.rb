@@ -5,13 +5,6 @@ require_relative "../support/article_background"
 describe "Articles behavior:" do
   include I18nSupport
   include SpecHelpers
-  before do
-    setup_database
-  end
-
-  after do
-    teardown_database
-  end
 
   let(:user) do
     TestUser.new.tap do |user|

@@ -7,15 +7,25 @@ require 'kameleon/ext/rspec/all'
 
 Dir[Rails.root.join("spec/support/autoload/**/*.rb")].each {|f| require f}
 
-module SpecHelpers
-  def setup_database
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.start
-  end
+load_schema = lambda {
+  load "#{Rails.root.to_s}/db/schema.rb" # use db agnostic schema by default
+}
+silence_stream(STDOUT, &load_schema)
 
-  def teardown_database
-    DatabaseCleaner.clean
+module SpecHelpers
+  def self.included(base)
+    base.before(:all) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    base.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    base.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 end
 

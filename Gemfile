@@ -9,22 +9,25 @@ gem "jdbc-sqlite3", :platform => :jruby
 
 gem 'aequitas', '~>0.0.2'
 gem 'virtus', '~>0.4'
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'cells'
-
 gem 'routing-filter'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "rspec-cells"
+  gem 'database_cleaner'
+end
+
+group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-shell'
   gem 'rb-inotify' if RUBY_PLATFORM =~ /linux/i
   gem 'libnotify' if RUBY_PLATFORM =~ /linux/i
-  gem 'database_cleaner'
 end
 
 group :test do
