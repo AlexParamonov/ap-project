@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~>3.2.2.rc1'
-gem 'sqlite3'
+# for CRuby, Rubinius, including Windows and RubyInstaller 
+gem "sqlite3", :platform => [:ruby, :mswin, :mingw]
+
+# for JRuby 
+gem "jdbc-sqlite3", :platform => :jruby
 
 gem 'aequitas', '~>0.0.2'
 gem 'virtus', '~>0.4'
