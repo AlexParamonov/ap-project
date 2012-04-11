@@ -18,7 +18,6 @@ TAGS
 pkg/
 .idea/
 doc/
-db/*.sqlite3
 /coverage
 /coverage.data
 /.yardoc
