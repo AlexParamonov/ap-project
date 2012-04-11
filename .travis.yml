@@ -4,10 +4,13 @@ rvm:
   - ruby-head
   - jruby-19mode
   - rbx-19mode
+
+bundler_args: "--without development production"
+
 matrix:
   allow_failures:
     - rvm: jruby-19mode
     - rvm: rbx-19mode
 before_script:
-  - "cp config/database.yml.sample config/database.yml"
+  - "cp config/database.sample.yml config/database.yml"
   - "bundle exec rake db:test:prepare db:migrate"
