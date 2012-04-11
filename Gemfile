@@ -19,15 +19,13 @@ group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "rspec-cells"
   gem 'database_cleaner'
+  gem 'guard-rspec'
 end
 
 group :development do
   gem 'guard'
-  gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-shell'
-  gem 'rb-inotify' if RUBY_PLATFORM =~ /linux/i
-  gem 'libnotify' if RUBY_PLATFORM =~ /linux/i
 end
 
 group :test do
