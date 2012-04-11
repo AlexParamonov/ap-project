@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>3.2.2.rc1'
 
+gem 'aequitas', '~>0.0.2'
 gem 'virtus', '~>0.4'
 gem 'jquery-rails'
 gem 'haml-rails'

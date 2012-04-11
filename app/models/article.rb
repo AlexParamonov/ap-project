@@ -1,11 +1,15 @@
 require "virtus"
+require "aequitas"
 require_relative "feed"
+require "dm_dummy"
 
 class Article
   include Virtus
+  include Aequitas
+  include DMDummy
+
   extend ActiveModel::Naming
   include ActiveModel::Conversion
-  include ActiveModel::Validations
 
   attribute :feed, Feed
 
@@ -14,7 +18,7 @@ class Article
   attribute :content, String
   attribute :pubdate, DateTime
 
-  validates :title, presence: true
+  validates_presence_of :title
 
   def initialize(attrs = {})
     attrs.each { |k,v| public_send("#{k}=", v)}

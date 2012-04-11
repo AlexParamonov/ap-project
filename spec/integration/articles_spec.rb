@@ -151,6 +151,23 @@ describe "Articles behavior:" do
         end
 
       end
+
+      it "should not publish article without a title" do
+        fill_in "Article summary" => 'article_summary',
+                "Article content" => 'article_content'
+
+        iclick "article.buttons.publish"
+
+        within '#error_explanation' do
+          isee 'errors.messages.not_saved'
+        end
+
+        see fields: [ 'article_title',
+                      'article_summary',
+                      'article_content', ]
+
+      end
+
     end
 
 
