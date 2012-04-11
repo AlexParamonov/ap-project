@@ -20,6 +20,7 @@ group :test, :development do
   gem 'guard-shell'
   gem 'rb-inotify' if RUBY_PLATFORM =~ /linux/i
   gem 'libnotify' if RUBY_PLATFORM =~ /linux/i
+  gem 'database_cleaner'
 end
 
 group :test do

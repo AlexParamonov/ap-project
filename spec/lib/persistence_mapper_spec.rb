@@ -70,5 +70,13 @@ describe PersistenceMapper do
       subject.persistence = persistence
       subject.load_attributes_to_persistence
     end
+
+    it "should delegate #persisted? to persistence" do
+      persistence = mock(:persistence)
+      persistence.should_receive(:persisted?)
+      subject.persistence = persistence
+
+      subject.persisted?
+    end
   end
 end

@@ -2,8 +2,13 @@ require "virtus"
 require "aequitas"
 require_relative "feed"
 require "dm_dummy"
+require "persistence_mapper"
+require "general_mapper"
+require_relative '../persistence/article'
 
 class Article
+  LIMIT_DEFAULT = 15
+
   include Virtus
   include Aequitas
   include DMDummy
@@ -31,7 +36,13 @@ class Article
     feed.add_entry(self)
   end
 
-  def persisted?
-    false
+  def self.most_recent(limit=LIMIT_DEFAULT)
+    Mapper.order("pubdate DESC").limit(limit)
+  end
+
+  include PersistenceMapper
+  class Mapper < GeneralMapper
+    self.model = Article
+    self.persistence = ::Persistence::Article
   end
 end

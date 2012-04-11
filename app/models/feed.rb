@@ -9,6 +9,10 @@ class Feed
     @entries = []
   end
 
+  def initialize(entry_fetcher=->{Article.most_recent})
+    @entry_fetcher = entry_fetcher
+  end
+
   def new_article(*attrs)
     article_source.call(*attrs).tap do |article|
       article.feed = self
@@ -16,7 +20,7 @@ class Feed
   end
 
   def add_entry(entry)
-    @entries << entry
+    entry.load_attributes_to_persistence
   end
 
   def title
@@ -24,11 +28,15 @@ class Feed
   end
 
   def entries
-    @entries.sort_by(&:pubdate).reverse.take(10)
+    fetch_entries.to_a
   end
 
   private
   def article_source
     @article_source ||= Article.public_method(:new)
+  end
+
+  def fetch_entries
+    @entry_fetcher.()
   end
 end

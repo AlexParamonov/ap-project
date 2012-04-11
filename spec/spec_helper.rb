@@ -7,6 +7,18 @@ require 'kameleon/ext/rspec/all'
 
 Dir[Rails.root.join("spec/support/autoload/**/*.rb")].each {|f| require f}
 
+module SpecHelpers
+  def setup_database
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.start
+  end
+
+  def teardown_database
+    DatabaseCleaner.clean
+  end
+end
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
