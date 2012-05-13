@@ -1,48 +1,46 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>3.2.2.rc1'
-# for CRuby, Rubinius, including Windows and RubyInstaller 
+gem 'rails', '~>3.2.3'
+
+# for CRuby, Rubinius, including Windows and RubyInstaller
 gem "sqlite3", :platform => [:ruby, :mswin, :mingw]
 
-# for JRuby 
+# for JRuby
 gem "jdbc-sqlite3", :platform => :jruby
 
 gem 'aequitas', '~>0.0.2'
 gem 'virtus', '~>0.4'
 
-gem 'jquery-rails'
-gem 'haml-rails'
-gem 'cells'
-gem 'routing-filter'
+gem 'jquery-rails', '~>2.0'
+gem 'haml-rails', '~>0.3'
+gem 'cells', '~>3.8'
+gem 'routing-filter', '~>0.3'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
-  gem "rspec-cells"
-  gem 'database_cleaner'
-  gem 'guard-rspec'
+  gem "rspec-cells", '~>0.1'
+  gem 'database_cleaner', '~>0.7'
+  gem 'guard-rspec', '~>0.7'
 end
 
 group :development do
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-shell'
+  gem 'guard', '~>1.0'
+  gem 'guard-bundler', '~>0.1'
+  gem 'guard-shell', '~>0.4'
 end
 
 group :test do
-  gem 'factory_girl'
-  gem "kameleon", "~> 0.2.0.alpha"
+  gem 'factory_girl', '~>3.2'
+  gem "kameleon", "~> 0.2"
 end
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~>3.2.3'
+  gem 'coffee-rails', '~>3.2.2'
 
+  gem 'uglifier', '~>1.2'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer'
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer', '~>0.10'
 end
 
 # Notes
