@@ -37,7 +37,7 @@ class Article
   end
 
   def self.most_recent(limit=LIMIT_DEFAULT)
-    Mapper.order("pubdate DESC").limit(limit)
+    Mapper.most_recent(limit)
   end
 
   include PersistenceMapper

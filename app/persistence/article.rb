@@ -11,5 +11,9 @@ module Persistence
     def feed
       THE_FEED
     end
+
+    def self.most_recent(limit)
+      self.order("pubdate DESC").limit(limit)
+    end
   end
 end
