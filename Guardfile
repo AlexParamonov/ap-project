@@ -49,7 +49,7 @@ group 's' do # system
 
   guard 'shell' do
     def refresh_tags
-      `ctags-exuberant -e -R lib app spec public config`
+      `ctags-exuberant -f tags -e -R lib app spec public config`
       puts 'tags refreshed'
     end
 
