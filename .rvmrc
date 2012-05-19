@@ -1,1 +1,1 @@
-rvm 1.9.3-head@ap --create
+rvm 1.9.3@ap --create
