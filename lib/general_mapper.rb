@@ -1,16 +1,21 @@
 class GeneralMapper
   class<<self
     attr_accessor :persistence, :model
+    attr_writer :model_methods
 
-    def find(id)
-      @model.new.tap do |model|
-        model.persistence = @persistence.find(id)
-        model.load_attributes_from_persistence
-      end
+    def model_methods
+      Array(@model_methods)
+    end
+
+    def new_model(item)
+      model.new.load_attributes_from item
     end
 
     def method_missing(meth, *args, &blk)
-      new(@persistence.send meth, *args, &blk)
+      result = @persistence.send meth, *args, &blk
+
+      return new_model(result) if model_methods.include? meth
+      new(result)
     end
   end
 
@@ -28,11 +33,8 @@ class GeneralMapper
 
   def to_a(*args)
     @obj.to_a(*args).map do |item|
-      on_eval(item)
+      self.class.new_model(item)
     end
   end
 
-  def on_eval(item)
-    self.class.model.new.load_attributes_from item
-  end
 end

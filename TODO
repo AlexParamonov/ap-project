@@ -4,3 +4,4 @@
 * select cells or exhibits as main wrapper.
 * update kameleon specs using method chains.
 * update kameleon tests: remove Xpath patch. Use explicit xpath selection in kameleon.
+* extract persistence mapper

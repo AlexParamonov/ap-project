@@ -5,6 +5,12 @@ describe GeneralMapper do
   subject { GeneralMapper.tap { |mapper| mapper.persistence = persistence } }
   let(:persistence) { mock(:persistence).tap { |m| m.stub_chain(:order, :limit) } }
 
+  let(:model_instance) { stub.as_null_object }
+  let(:model) { stub }
+  before(:each) do
+    model.stub(:new).and_return(model_instance)
+  end
+
   it 'should delegate any unknown method to persistence' do
     persistence.should_receive(:unknown_method)
     subject.unknown_method
@@ -24,7 +30,6 @@ describe GeneralMapper do
   end
 
   describe "#to_a (to_ary)" do
-    let(:model) { Class.new }
     let(:records) { [stub(:record1)] }
     # let(:records) { [stub, stub, stub] }
     let(:enum) { stub(:enum).tap { |e| e.stub(:to_a).and_return(records) } }
@@ -38,14 +43,38 @@ describe GeneralMapper do
     end
 
     it "should return array" do
-      subject.stub(:on_eval)
+      subject.stub(:new_model)
       subject.to_a.should be_instance_of Array
     end
 
     it "should call load_attributes_from_persistence on element" do
-      records.each { |record| model.any_instance.should_receive(:load_attributes_from).with(record).once }
+      records.each { |record| model_instance.should_receive(:load_attributes_from).with(record).once }
       # records.each { |record| should_receive(:load_attributes_from_persistence).with(record).once }
       subject.to_a
+    end
+  end
+
+  describe "#model_methods" do
+    let(:persistence_instance) { stub }
+    let(:persistence) { mock(:persistence).tap { |m| m.stub(:fetch_model).and_return(persistence_instance) } }
+
+    before(:each) do
+      GeneralMapper.model = model
+      GeneralMapper.persistence = persistence
+      GeneralMapper.model_methods = :fetch_model
+    end
+
+    it "should store methods" do
+      GeneralMapper.model_methods.should eq [:fetch_model]
+    end
+
+    it "should return new model instance" do
+      GeneralMapper.fetch_model.should eq model_instance
+    end
+
+    it "should load attributes to model from persistence object" do
+      model_instance.should_receive(:load_attributes_from).with(persistence_instance);
+      GeneralMapper.fetch_model
     end
   end
 end

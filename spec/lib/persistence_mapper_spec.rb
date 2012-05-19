@@ -18,6 +18,8 @@ describe PersistenceMapper do
         end
       end
     cls::Mapper.model = cls
+    # TODO remove this
+    cls::Mapper.model_methods = :find
     cls
   end
 
@@ -38,6 +40,7 @@ describe PersistenceMapper do
   it "should set mapped ORM object to PORO" do
     orm_object = stub(:orm_object).as_null_object
     orm_class  = stub(:orm_class)
+    orm_class.stub(:new).and_return(orm_object)
     orm_class.stub(:find).and_return(orm_object)
 
     blog_class::Mapper.persistence = orm_class

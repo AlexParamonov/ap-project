@@ -36,13 +36,14 @@ class Article
     feed.add_entry(self)
   end
 
-  def self.most_recent(limit=LIMIT_DEFAULT)
-    Mapper.most_recent(limit)
-  end
-
   include PersistenceMapper
   class Mapper < GeneralMapper
     self.model = Article
     self.persistence = ::Persistence::Article
+
+
+    def self.most_recent(limit=LIMIT_DEFAULT)
+      new(self.persistence.most_recent(limit))
+    end
   end
 end

@@ -9,7 +9,7 @@ class Feed
     @entries = []
   end
 
-  def initialize(entry_fetcher=->{Article.most_recent})
+  def initialize(entry_fetcher=->{Article::Mapper.most_recent})
     @entry_fetcher = entry_fetcher
   end
 
@@ -29,6 +29,10 @@ class Feed
 
   def entries
     fetch_entries.to_a
+  end
+
+  def article(article_id)
+    fetch_entries.fetch(article_id.to_i)
   end
 
   private
