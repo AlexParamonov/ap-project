@@ -27,9 +27,6 @@ group :development do
   gem 'guard', '~>1.0'
   gem 'guard-bundler', '~>0.1'
   gem 'guard-shell', '~>0.4'
-  gem 'linecache19', '0.5.13', :path => "~/.rvm/gems/ruby-1.9.3-p194@ap/gems/linecache19-0.5.13/"
-  gem 'ruby-debug-base19', '0.11.26', :path => "~/.rvm/gems/ruby-1.9.3-p194@ap/gems/ruby-debug-base19-0.11.26/"
-  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :test do
