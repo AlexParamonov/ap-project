@@ -46,9 +46,12 @@ describe "Articles behavior:" do
         alice.not_see @unpublished.summary
       end
 
-      pending "is able to open article page for reading" do
+      it "is able to open article page for reading" do
         alice.click @oor.title
-        alice.should_be_at article_path(@oor)
+
+        alice.see @oor.title
+        alice.not_see @js.title
+        # alice.should_be_at article_path(@oor)
       end
     end
 
@@ -60,9 +63,8 @@ describe "Articles behavior:" do
         alice.click @oor.title
       end
 
-      pending "should see article fields" do
+      it "should see article fields" do
         alice.see @oor.title,
-                  @oor.summary,
                   @oor.content
       end
     end

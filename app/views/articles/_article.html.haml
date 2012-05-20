@@ -1,6 +1,6 @@
 %article
   %header
-    %h1= link_to article.title, "#"
+    %h1= link_to article.title, article_path(article.id)
     .published
       Published:
       %time{ pubdate: 'pubdate' }= article.pubdate
