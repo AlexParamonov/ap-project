@@ -55,26 +55,51 @@ describe GeneralMapper do
   end
 
   describe "#model_methods" do
+    before(:each) do
+      GeneralMapper.model_methods = []
+    end
+
+    it "should store methods" do
+      GeneralMapper.model_methods = [:fetch_model]
+      GeneralMapper.model_methods.should eq [:fetch_model]
+    end
+
+    it "should be able to add method by <<" do
+      GeneralMapper.model_methods << :fetch_model << :find
+      GeneralMapper.model_methods.should eq [:fetch_model, :find]
+    end
+  end
+
+  describe "call model_method" do
     let(:persistence_instance) { stub }
     let(:persistence) { mock(:persistence).tap { |m| m.stub(:fetch_model).and_return(persistence_instance) } }
 
     before(:each) do
       GeneralMapper.model = model
       GeneralMapper.persistence = persistence
-      GeneralMapper.model_methods = :fetch_model
+      GeneralMapper.model_methods = [:fetch_model]
     end
 
-    it "should store methods" do
-      GeneralMapper.model_methods.should eq [:fetch_model]
+    context "on Mapper" do
+      it "should return new model instance" do
+        GeneralMapper.fetch_model.should eq model_instance
+      end
+
+      it "should return new model instance" do
+        GeneralMapper.fetch_model.should eq model_instance
+      end
+
+      it "should load attributes to model from persistence object" do
+        model_instance.should_receive(:load_attributes_from).with(persistence_instance);
+        GeneralMapper.fetch_model
+      end
     end
 
-    it "should return new model instance" do
-      GeneralMapper.fetch_model.should eq model_instance
-    end
-
-    it "should load attributes to model from persistence object" do
-      model_instance.should_receive(:load_attributes_from).with(persistence_instance);
-      GeneralMapper.fetch_model
+    context "on mapper instance" do
+      it "should return new model instance" do
+        persistence_instance.stub(:fetch_model).and_return(model_instance)
+        GeneralMapper.new(persistence_instance).fetch_model.should eq model_instance
+      end
     end
   end
 end

@@ -19,7 +19,7 @@ describe PersistenceMapper do
       end
     cls::Mapper.model = cls
     # TODO remove this
-    cls::Mapper.model_methods = :find
+    cls::Mapper.model_methods = [:find]
     cls
   end
 

@@ -4,18 +4,25 @@ class GeneralMapper
     attr_writer :model_methods
 
     def model_methods
-      Array(@model_methods)
+      @model_methods ||= []
     end
 
     def new_model(item)
       model.new.load_attributes_from item
     end
 
-    def method_missing(meth, *args, &blk)
-      result = @persistence.send meth, *args, &blk
+    def method_missing(method, *args, &blk)
+      result = @persistence.send method, *args, &blk
 
-      return new_model(result) if model_methods.include? meth
-      new(result)
+      process_method_call(method, result)
+    end
+
+    def process_method_call(method, result)
+      if model_methods.include? method
+        new_model(result)
+      else
+        new(result)
+      end
     end
   end
 
@@ -23,8 +30,10 @@ class GeneralMapper
     @obj = obj
   end
 
-  def method_missing(meth, *args)
-    self.class.new(@obj.send meth, *args)
+  def method_missing(method, *args, &blk)
+    result = @obj.send method, *args, &blk
+
+    self.class.process_method_call(method, result)
   end
 
   def respond_to?(*args)
@@ -36,5 +45,4 @@ class GeneralMapper
       self.class.new_model(item)
     end
   end
-
 end
