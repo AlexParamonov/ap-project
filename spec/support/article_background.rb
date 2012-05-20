@@ -7,17 +7,6 @@ class ArticleBackground
   include Rails.application.routes.url_helpers
   include ActionFramework
 
-  def admin
-    @admin ||=
-      TestUser.new.tap do |user|
-        user.action_framework = action_framework
-      end.extend TestUser::ArticleEditor
-  end
-
-  def edit_article_path(*args)
-    edit_admin_article_path(*args)
-  end
-
   def publish_article(factory)
     admin.visit_new_article_page
 
@@ -29,5 +18,13 @@ class ArticleBackground
     admin.iclick "article.buttons.publish"
 
     article
+  end
+
+  private
+  def admin
+    @admin ||=
+      TestUser.new.tap do |user|
+        user.action_framework = action_framework
+      end.extend TestUser::ArticleAdmin
   end
 end
