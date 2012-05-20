@@ -8,7 +8,7 @@ class ArticleBackground
   include ActionFramework
 
   def admin
-    @admin ||= 
+    @admin ||=
       TestUser.new.tap do |user|
         user.action_framework = action_framework
       end.extend TestUser::ArticleEditor
@@ -19,7 +19,7 @@ class ArticleBackground
   end
 
   def publish_article(factory)
-    admin.open_new_article_page
+    admin.visit_new_article_page
 
     article = OpenStruct.new FactoryGirl.attributes_for(factory)
     admin.fill_in article.title   => 'article_title',

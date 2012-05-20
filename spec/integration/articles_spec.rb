@@ -18,12 +18,9 @@ describe "Articles behavior:" do
     end
   end
 
-  before(:each) do
-    visit '/'
-  end
-
   context "reader at" do
-    let(:alice) { user.act_as :ArticleReader }
+    let!(:reader) { user.act_as :ArticleReader }
+    UserActions::visitor ->{reader}, self
 
     describe "article listing page" do
       before(:each) do
@@ -31,27 +28,27 @@ describe "Articles behavior:" do
         @js          = background.publish_article :js_article
         @unpublished = background.publish_article :unpublished_article
 
-        alice.click 'articles'
+        visit_articles_listing
       end
 
       it "should see published articles" do
         [@oor, @js].each do |article|
-          alice.see link: article.title
-          alice.see article.summary
+          see link: article.title
+          see article.summary
         end
       end
 
       pending "should not see unpublished articles" do
-        alice.not_see link: @unpublished.title
-        alice.not_see @unpublished.summary
+        not_see link: @unpublished.title
+        not_see @unpublished.summary
       end
 
       it "is able to open article page for reading" do
-        alice.click @oor.title
+        click @oor.title
 
-        alice.see @oor.title
-        alice.not_see @js.title
-        # alice.should_be_at article_path(@oor)
+        see @oor.title
+        not_see @js.title
+        # should_be_at article_path(@oor)
       end
     end
 
@@ -59,49 +56,53 @@ describe "Articles behavior:" do
       before(:each) do
         @oor = background.publish_article :oor_article
 
-        alice.click 'articles'
-        alice.click @oor.title
+        visit_articles_listing
+        click @oor.title
       end
 
       it "should see article fields" do
-        alice.see @oor.title,
-                  @oor.content
+        see @oor.title,
+            @oor.content
       end
     end
   end
 
   context "admin at" do
-    let(:alex) { user.act_as :ArticleEditor }
+    let!(:admin) { user.act_as :ArticleAdmin }
+    UserActions::visitor ->{editor}, self
 
     describe "article listing page" do
       before(:each) do
         @oor         = background.publish_article :oor_article
+        @js          = background.publish_article :js_article
         @unpublished = background.publish_article :unpublished_article
 
-        alex.click 'articles'
+        visit_articles_listing
       end
 
       it "should see published and unpublished articles" do
         [@oor, @unpublished].each do |article|
-          alex.see link: article.title
-          alex.see article.summary
+          see link: article.title
+          see article.summary
         end
       end
 
-      pending "is able to open article preview page" do
-        alex.click @oor.title
-        alex.should_be_at preview_article_path(@oor)
+      it "is able to open article preview page" do
+        click @oor.title
+        see @oor.title
+        not_see @js.title
+        # should_be_at preview_article_path(@oor)
       end
 
       pending "is able to open article edit page" do
-        alex.click @oor.title,
-                   'edit' # TODO Click edit near title...
-        alex.should_be_at edit_article_path(@oor)
+        click @oor.title,
+             'edit' # TODO Click edit near title...
+        should_be_at edit_article_path(@oor)
       end
 
       it "is able to open new article page" do
-        alex.click 'new_article'
-        alex.should_be_at new_article_path
+        click 'new_article'
+        should_be_at new_article_path
       end
     end
 
@@ -109,25 +110,25 @@ describe "Articles behavior:" do
       before(:each) do
         @oor = background.publish_article :oor_article
 
-        alex.click 'articles'
-        alex.click @oor.title
+        visit_articles_listing
+        click @oor.title
       end
 
       pending "should see article fields" do
-        alex.see  @oor.title,
-                  @oor.summary,
-                  @oor.content
+        see @oor.title,
+            @oor.summary,
+            @oor.content
       end
 
       pending "is able to open article edit page" do
-        alex.click 'edit'
-        alex.should_be_at edit_article_path
+        click 'edit'
+        should_be_at edit_article_path
       end
     end
 
     describe "article new page" do
       before(:each) do
-        alex.open_new_article_page
+        visit_new_article_page
       end
 
       it "should see article fields inside input tags" do
@@ -174,7 +175,7 @@ describe "Articles behavior:" do
 
     describe "article edit page" do
       before(:each) do
-        alex.open_edit_article_page_for @oor
+        visit_edit_article_page_for @oor
       end
 
       pending "should see article fields inside input tags" do
@@ -186,45 +187,43 @@ describe "Articles behavior:" do
       pending "is able to change title" do
         fill_in "New title for OOR book" => :title
         click 'save'
+        see 'updated successfully'
 
-        alex.see 'updated successfully'
-
-        alex.open_article_listing
-        alex.see "New title for OOR book"
+        visit_article_listing
+        see "New title for OOR book"
       end
 
       pending "is able to change summary" do
         fill_in "New summary for OOR book" => :summary
         click 'save'
+        see 'updated successfully'
 
-        alex.see 'updated successfully'
-
-        alex.open_article_listing
-        alex.see "New summary for OOR book"
+        visit_article_listing
+        see "New summary for OOR book"
       end
 
       pending "is able to change content" do
         fill_in "New content for OOR book" => :content
         click 'save'
+        see 'updated successfully'
 
-        alex.see 'updated successfully'
-
-        alex.open_article_listing
-        alex.see "New content for OOR book"
+        visit_article_listing
+        see "New content for OOR book"
       end
 
       pending "is able to open article preview page" do
-        alex.click 'preview'
-        alex.should_be_at preview_article_path(@oor)
+        click 'preview'
+        should_be_at preview_article_path(@oor)
       end
 
       pending "is able to remove article" do
-        alex.click 'remove',
-                   'Confirm'
+        click 'remove',
+              'Confirm'
 
-        alex.see 'article_removed'
-        alex.should_be_at articles_path
+        see 'article_removed'
+        should_be_at articles_path
       end
     end
   end
+
 end
