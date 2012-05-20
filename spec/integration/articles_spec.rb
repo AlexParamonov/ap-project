@@ -20,7 +20,6 @@ describe "Articles behavior:" do
 
   context "reader at" do
     let!(:reader) { user.act_as :ArticleReader }
-    UserActions::visitor ->{reader}, self
 
     describe "article listing page" do
       before(:each) do
@@ -28,7 +27,7 @@ describe "Articles behavior:" do
         @js          = background.publish_article :js_article
         @unpublished = background.publish_article :unpublished_article
 
-        visit_articles_listing
+        reader.visit_articles_listing
       end
 
       it "should see published articles" do
@@ -48,7 +47,7 @@ describe "Articles behavior:" do
 
         see @oor.title
         not_see @js.title
-        # should_be_at article_path(@oor)
+        # reader.should_be_at article_path(@oor)
       end
     end
 
@@ -56,7 +55,7 @@ describe "Articles behavior:" do
       before(:each) do
         @oor = background.publish_article :oor_article
 
-        visit_articles_listing
+        reader.visit_articles_listing
         click @oor.title
       end
 
@@ -69,7 +68,6 @@ describe "Articles behavior:" do
 
   context "admin at" do
     let!(:admin) { user.act_as :ArticleAdmin }
-    UserActions::visitor ->{editor}, self
 
     describe "article listing page" do
       before(:each) do
@@ -77,7 +75,7 @@ describe "Articles behavior:" do
         @js          = background.publish_article :js_article
         @unpublished = background.publish_article :unpublished_article
 
-        visit_articles_listing
+        admin.visit_articles_listing
       end
 
       it "should see published and unpublished articles" do
@@ -91,18 +89,18 @@ describe "Articles behavior:" do
         click @oor.title
         see @oor.title
         not_see @js.title
-        # should_be_at preview_article_path(@oor)
+        # admin.should_be_at preview_article_path(@oor)
       end
 
       pending "is able to open article edit page" do
         click @oor.title,
              'edit' # TODO Click edit near title...
-        should_be_at edit_article_path(@oor)
+        admin.should_be_at edit_article_path(@oor)
       end
 
       it "is able to open new article page" do
         click 'new_article'
-        should_be_at new_article_path
+        admin.should_be_at new_article_path
       end
     end
 
@@ -110,7 +108,7 @@ describe "Articles behavior:" do
       before(:each) do
         @oor = background.publish_article :oor_article
 
-        visit_articles_listing
+        admin.visit_articles_listing
         click @oor.title
       end
 
@@ -122,13 +120,13 @@ describe "Articles behavior:" do
 
       pending "is able to open article edit page" do
         click 'edit'
-        should_be_at edit_article_path
+        admin.should_be_at edit_article_path
       end
     end
 
     describe "article new page" do
       before(:each) do
-        visit_new_article_page
+        admin.visit_new_article_page
       end
 
       it "should see article fields inside input tags" do
@@ -175,7 +173,7 @@ describe "Articles behavior:" do
 
     describe "article edit page" do
       before(:each) do
-        visit_edit_article_page_for @oor
+        admin.visit_edit_article_page_for @oor
       end
 
       pending "should see article fields inside input tags" do
@@ -189,7 +187,7 @@ describe "Articles behavior:" do
         click 'save'
         see 'updated successfully'
 
-        visit_article_listing
+        admin.visit_article_listing
         see "New title for OOR book"
       end
 
@@ -198,7 +196,7 @@ describe "Articles behavior:" do
         click 'save'
         see 'updated successfully'
 
-        visit_article_listing
+        admin.visit_article_listing
         see "New summary for OOR book"
       end
 
@@ -207,13 +205,13 @@ describe "Articles behavior:" do
         click 'save'
         see 'updated successfully'
 
-        visit_article_listing
+        admin.visit_article_listing
         see "New content for OOR book"
       end
 
       pending "is able to open article preview page" do
         click 'preview'
-        should_be_at preview_article_path(@oor)
+        admin.should_be_at preview_article_path(@oor)
       end
 
       pending "is able to remove article" do
@@ -221,7 +219,7 @@ describe "Articles behavior:" do
               'Confirm'
 
         see 'article_removed'
-        should_be_at articles_path
+        admin.should_be_at articles_path
       end
     end
   end
