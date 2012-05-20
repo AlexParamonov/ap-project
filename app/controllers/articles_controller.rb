@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  respond_to :html, :json
+  respond_to :html
 
   def new
     @article = feed.new_article
