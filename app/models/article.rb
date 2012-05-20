@@ -18,6 +18,7 @@ class Article
 
   attribute :feed, Feed
 
+  attribute :id, Integer
   attribute :title, String
   attribute :summary, String
   attribute :content, String
@@ -40,6 +41,7 @@ class Article
   class Mapper < GeneralMapper
     self.model = Article
     self.persistence = ::Persistence::Article
+    self.model_methods << :find
 
 
     def self.most_recent(limit=LIMIT_DEFAULT)

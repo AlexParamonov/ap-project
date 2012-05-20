@@ -32,7 +32,7 @@ class Feed
   end
 
   def article(article_id)
-    fetch_entries.fetch(article_id.to_i)
+    fetch_entries.find(article_id.to_i)
   end
 
   private
