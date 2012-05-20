@@ -1,6 +1,13 @@
 class ArticlesController < ApplicationController
+  respond_to :html, :json
+
   def new
     @article = feed.new_article
+  end
+
+  def show
+    @article = exhibit(feed.article(params[:id]))
+    respond_with(@article)
   end
 
   def create
