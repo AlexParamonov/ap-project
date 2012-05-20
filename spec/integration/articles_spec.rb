@@ -159,9 +159,7 @@ describe "Articles behavior:" do
 
         iclick "article.buttons.publish"
 
-        within '#error_explanation' do
-          isee 'errors.messages.not_saved'
-        end
+        within('#error_explanation').isee 'errors.messages.not_saved'
 
         see fields: [ 'article_title',
                       'article_summary',
@@ -178,9 +176,9 @@ describe "Articles behavior:" do
       end
 
       pending "should see article fields inside input tags" do
-        within 'input' do alex.see @oor.title end
-        within 'input' do alex.see @oor.summary end
-        within 'input' do alex.see @oor.content end
+        within('input').see @oor.title
+        within('input').see @oor.summary
+        within('input').see @oor.content
       end
 
       pending "is able to change title" do
